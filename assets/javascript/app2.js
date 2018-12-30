@@ -31,7 +31,10 @@ $(document).ready(function () {
     ]
 
     var questionCount = 0;
-    
+    //var score = 0;
+    correctAnswers = ["both male and female", "Rudolph the red nose Reindeer", "1000 lb", "1 month"];
+    userAnswer = '';
+
 
     //set time counter number
     var timeCounter = 10;
@@ -75,7 +78,7 @@ $(document).ready(function () {
             stop();
 
             //  Alert the user that time is up .
-            alert("Time Up!");
+            quizOver();
         }
     }
     //function to stop the timer
@@ -86,32 +89,71 @@ $(document).ready(function () {
     //showQuestion function will show the question dynamically on the page
     //create question variable and answer variable that is held in gameQuestion object
     function showQuestion() {
-        for (var g = 0; g <gameQuestions.length; g++){
+        for (var g = 0; g < gameQuestions.length; g++) {
 
-        //console.log(gameQuestions[0]);
-        var newGameQuestion = $("<p>");
-        newGameQuestion.append(gameQuestions[questionCount].question);
-        $("#question").append(newGameQuestion);
+            //console.log(gameQuestions[0]);
+            //question has to render on the page in list
+            //answers list has to have radio button 
+            //user can only pick one answer
+            var newGameQuestion = $("<p>");
+            newGameQuestion.append(gameQuestions[questionCount].question);
+            $("#question").append(newGameQuestion);
 
-        for (var i = 0; i < gameQuestions.length; i++) {
-            var buttons = $('<button>').addClass('index');
-            buttons.append(gameQuestions[questionCount].options[i]);
-            $("#question").append(buttons); 
-        }
-    
-        questionCount++;
-    }
-   $('.index').on('click',function(){
-       
-        if ($(this).text() === gameQuestions[0].correctAnswer || $(this).text() === gameQuestions[1].correctAnswer || $(this).text() === gameQuestions[2].correctAnswer || $(this).text() === gameQuestions[3].correctAnswer){
-            console.log('correect');
-        }
-        else {
-            console.log("incorrect");
-        }
+            for (var i = 0; i < gameQuestions.length; i++) {
+                var pQuestion = $('<p>');
+                var radioButton = ('<input type="radio" value="' + gameQuestions[questionCount].options[i] + '" name="asdf">');
+
+                //$('<button>').append(radioButton);
+                //$('<form></from>').prepend(radioButton);    
+
+                pQuestion.prepend(radioButton);
+                pQuestion.append(gameQuestions[questionCount].options[i]);
+
+                $("#question").append(pQuestion);
+
+                //console.log();
+            }
+            questionCount++;
+
+        }}
+        /*  
+        function submitbutton(){
+            
+             if ($(this).text() === gameQuestions[0].correctAnswer || $(this).text() === gameQuestions[1].correctAnswer || $(this).text() === gameQuestions[2].correctAnswer || $(this).text() === gameQuestions[3].correctAnswer){
+                 console.log('correect');
+             }
+             else {
+                 console.log("incorrect");
+             } */
         //console.log($(this));
-        
-    })
-    stop();
-}
-});
+
+        //}
+       
+
+        // to check the answer we have to create
+        // make a variable to hold answer array
+        //variable to hold correct answer array
+        //check the user selected answer against the answer array
+        //use for loop index to check the length of correct answer
+        //then compare the user selection to correct answer array
+        //when clicked on submit or time runs out, show result page
+        // result holds number of correct, incorrect and unanswered question and answer
+        // reset back everything
+        //each id get the val of radio button.
+        function quizOver() {
+           // var radios = document.getElementsByName('genderS');
+               var radio =$('input');
+            for (var i = 0;  i < radio.length; i++) {
+                if (radio[i].checked) {
+                    // do whatever you want with the checked radio
+                    console.log(radio[i].value)
+                    //alert(radios[i].value);
+
+                    // only one radio can be logically checked, don't check the rest
+                    break;
+                }
+            }
+        }
+        stop();
+        quizOver()
+    });
