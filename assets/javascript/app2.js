@@ -96,24 +96,26 @@ $(document).ready(function () {
             //answers list has to have radio button 
             //user can only pick one answer
             var newGameQuestion = $("<p>");
-            newGameQuestion.append(gameQuestions[questionCount].question);
+            newGameQuestion.append(gameQuestions[g].question);
             $("#question").append(newGameQuestion);
 
-            for (var i = 0; i < gameQuestions.length; i++) {
-                var pQuestion = $('<p>');
-                var radioButton = ('<input type="radio" value="' + gameQuestions[questionCount].options[i] + '" name="asdf">');
+            for (var i = 0; i < gameQuestions[g].options.length; i++) {
+                var pAnswers = $('<p>');
+                var question = gameQuestions[g];
+                var option = question.options[i];
+                var radioButton = $(`<input type="radio" value="${option}" name="${question.numberId}"> ${option} </input>`);
 
                 //$('<button>').append(radioButton);
-                //$('<form></from>').prepend(radioButton);    
+                   
 
-                pQuestion.prepend(radioButton);
-                pQuestion.append(gameQuestions[questionCount].options[i]);
+                pAnswers.prepend(radioButton);
+                //pAnswers.append(gameQuestions[questionCount].options[i]);
 
-                $("#question").append(pQuestion);
+                $("#question").append(pAnswers);
 
                 //console.log();
             }
-            questionCount++;
+           
 
         }}
         /*  
